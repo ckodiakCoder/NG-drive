@@ -36,11 +36,15 @@ function App() {
         <>
           <div className="flex justify-between items-center mb-6 py-4 px-8 bg-gradient-to-r from-lime-100 via-lime-200 to-lime-100 shadow-xl rounded-lg">
             <div className="flex items-center space-x-2">
-              {/* Logo Section */}
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" width="32" height="32" className="text-blue-600">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2-13h4v6h-4zm0 8h4v2h-4z"></path>
-              </svg>
-              <span className="text-3xl font-semibold text-gray-900 tracking-tight">NG-Drive</span>
+              {/* Logo Section from AuthForm */}
+              <div className="flex items-center space-x-2">
+                <div className="bg-gradient-to-tr from-teal-400 to-purple-500 p-3 rounded-full">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path d="M3 12l2-2m0 0l7-7 7 7m-9 2v10m4-10l2 2m-2-2v10" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+                <h1 className="text-2xl font-bold text-gray-900">NG-Drive</h1>
+              </div>
             </div>
             <button
               onClick={handleLogout}
