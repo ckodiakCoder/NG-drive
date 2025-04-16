@@ -141,11 +141,10 @@ const FileManager = () => {
             return true;
         })
         .filter((file) => file.name.toLowerCase().includes(searchTerm.toLowerCase()));
-
     return (
-        <div className="flex min-h-screen bg-gradient-to-r from-lime-100 via-lime-200 to-lime-100">
+        <div className="flex flex-col md:flex-row min-h-screen bg-gradient-to-r from-lime-100 via-lime-200 to-lime-100">
             {/* Sidebar */}
-            <div className="w-80 border-r bg-gradient-to-r from-lime-100 via-lime-200 to-lime-100 p-6 space-y-6">
+            <div className="w-full md:w-80 border-r bg-gradient-to-r from-lime-100 via-lime-200 to-lime-100 p-4 md:p-6 space-y-6">
                 {/* Upload Area */}
                 <div
                     className="border-2 border-dashed border-gray-300 rounded-2xl p-6 text-center bg-gradient-to-r from-amber-50 to-amber-100 cursor-pointer"
@@ -163,9 +162,7 @@ const FileManager = () => {
                 <button
                     onClick={handleUpload}
                     disabled={!file || uploading}
-                    className={`w-full px-4 py-2 text-white rounded-md shadow ${uploading
-                        ? "bg-gray-400 cursor-not-allowed"
-                        : "bg-black hover:bg-gray-800"
+                    className={`w-full bg-black text-white font-semibold py-2 rounded-lg shadow hover:bg-gray-800 transition-all duration-200 ${uploading ? "opacity-50 cursor-not-allowed" : ""
                         }`}
                 >
                     {uploading ? "Uploading..." : "Upload File"}
@@ -201,9 +198,9 @@ const FileManager = () => {
             </div>
 
             {/* Main Content */}
-            <div className="flex-1 p-8 overflow-auto">
+            <div className="flex-1 p-4 md:p-8 overflow-auto">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-                    <div className="flex gap-2">
+                    <div className="flex flex-wrap gap-2">
                         {["All", "PDF", "Docs", "Excel"].map((tab) => (
                             <button
                                 key={tab}
@@ -231,35 +228,22 @@ const FileManager = () => {
                 {filteredFiles.length === 0 ? (
                     <p className="text-gray-500 text-center py-6">No matching files.</p>
                 ) : (
-                    <ul className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-h-[500px] overflow-y-auto">
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-h-[500px] overflow-y-auto">
                         {filteredFiles.map((file) => (
                             <li
                                 key={file.name}
                                 className="bg-white border border-gray-200 p-6 rounded-xl shadow hover:shadow-lg transition transform hover:scale-[1.02]"
                             >
                                 <div className="flex justify-between items-center mb-4">
-                                    <div className="flex items-center gap-3">
+                                    <div className="flex items-center gap-2">
                                         {getFileIcon(file.name.split(".").pop().toLowerCase())}
-                                        <div className="max-w-full">
-                                            <h3 className="font-semibold text-gray-800 text-ellipsis overflow-hidden whitespace-nowrap">
-                                                {file.name}
-                                            </h3>
-                                            <p className="text-sm text-gray-500 mt-1">
-                                                {new Date(file.created_at).toLocaleDateString()}
-                                            </p>
-                                        </div>
+                                        <p className="text-gray-800 font-semibold truncate max-w-[140px]">{file.name}</p>
                                     </div>
-                                    <button
-                                        onClick={() => deleteFile(file.name)}
-                                        className="text-red-500 hover:text-red-600 text-xl"
-                                        title="Delete file"
-                                    >
-                                        <FiTrash2 />
-                                    </button>
-                                </div>
-                                <div className="flex justify-end gap-3 text-gray-600 text-lg">
-                                    <button onClick={() => previewFile(file.name)} title="Preview"><FiEye /></button>
-                                    <button onClick={() => downloadFile(file.name)} title="Download"><FiDownload /></button>
+                                    <div className="flex items-center gap-3 text-gray-600">
+                                        <FiEye className="cursor-pointer" onClick={() => previewFile(file.name)} />
+                                        <FiDownload className="cursor-pointer" onClick={() => downloadFile(file.name)} />
+                                        <FiTrash2 className="cursor-pointer text-red-500" onClick={() => deleteFile(file.name)} />
+                                    </div>
                                 </div>
                             </li>
                         ))}
@@ -269,5 +253,4 @@ const FileManager = () => {
         </div>
     );
 };
-
 export default FileManager;
